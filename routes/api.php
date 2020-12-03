@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('contact')->group(function () {
+    Route::get('', 'App\Http\Controllers\ContactController@index')->name('contact.index');
+    Route::post('', 'App\Http\Controllers\ContactController@store')->name('contact.store');
+});
