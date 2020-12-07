@@ -246,10 +246,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this3.$toastr.w("Exitem erros no formulário! Verifique e tente novamente!", "Atenção!");
-
-          _this3.errors = error.response.data.errors || {};
         }
 
+        if (error.response.status === 500) {
+          _this3.$toastr.e("Erro ao cadastrar, caso o problema persista, entre em contato com os Administradores!", "Erro!");
+        }
+
+        _this3.errors = error.response.data.errors || {};
         _this.loading = false;
       });
     },

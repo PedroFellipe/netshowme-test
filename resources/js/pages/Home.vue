@@ -223,8 +223,13 @@
                             "Exitem erros no formulário! Verifique e tente novamente!",
                             "Atenção!"
                         );
-                        this.errors = error.response.data.errors || {};
+                    } if (error.response.status === 500) {
+                        this.$toastr.e(
+                            "Erro ao cadastrar, caso o problema persista, entre em contato com os Administradores!",
+                            "Erro!"
+                        );
                     }
+                    this.errors = error.response.data.errors || {};
                     _this.loading = false;
                 });
             },
