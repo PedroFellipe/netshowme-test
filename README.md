@@ -31,15 +31,16 @@ Now enter your local bank information in the following variables:
     DB_DATABASE=database
     DB_USERNAME=user
     DB_PASSWORD=password
-    
+
+In the current settings, the sent emails will be available in `` storage/logs/laravel.log`` if you wish send the actual email, you must change the settings in the ```.env``` file.    
 To configure sending emails, you must change the following fields in the ```.env``` file. Note that the ```MAIL_TO``` variable indicates to which email contact requests will be sent
 
     MAIL_TO=email@example.com
     MAIL_MAILER=smtp
     MAIL_HOST=smtp.mailtrap.io
     MAIL_PORT=2525
-    MAIL_USERNAME=
-    MAIL_PASSWORD=
+    MAIL_USERNAME=username
+    MAIL_PASSWORD=password
     MAIL_ENCRYPTION=tls
 
 Then, run the command below to run the project migrations:

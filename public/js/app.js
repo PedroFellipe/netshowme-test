@@ -53873,8 +53873,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/pedro/netshowme-test/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/pedro/netshowme-test/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/pedro/teste-doc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/pedro/teste-doc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
