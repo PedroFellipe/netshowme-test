@@ -1,4 +1,4 @@
-Coderockr recruitment test
+NetShow.me recruitment test
 =======================
 
 Technologies Used:
@@ -13,7 +13,7 @@ Project Installation and Execution
 ------------
 Clone the project:
 
-    git clone https://github.com/PedroFellipe/backend-test.git
+    https://github.com/PedroFellipe/netshowme-test.git
 
 After cloning the project, access the folder and run the following command to install the dependencies:
 
@@ -31,6 +31,16 @@ Now enter your local bank information in the following variables:
     DB_DATABASE=database
     DB_USERNAME=user
     DB_PASSWORD=password
+    
+To configure sending emails, you must change the following fields in the ```.env``` file. Note that the ```MAIL_TO``` variable indicates to which email contact requests will be sent
+
+    MAIL_TO=email@example.com
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=
+    MAIL_PASSWORD=
+    MAIL_ENCRYPTION=tls
 
 Then, run the command below to run the project migrations:
 
@@ -56,6 +66,6 @@ Execution of unit tests:
 
     php artisan test
 
-When performing unit tests, you should receive this as a result
+When performing unit tests, you should receive this as result
     
   ![Alt text](unit_tests.png?raw=true "Title")

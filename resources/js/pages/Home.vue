@@ -205,7 +205,6 @@
             },
             createContact: function createContact() {
                 this.loading = true;
-                var input = this.newContact;
                 let formData = this.getFormData(this.newContact);
                 var _this = this;
 

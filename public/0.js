@@ -227,7 +227,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.loading = true;
-      var input = this.newContact;
       var formData = this.getFormData(this.newContact);
 
       var _this = this;

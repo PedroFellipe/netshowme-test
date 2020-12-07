@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Contact;
 
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ContactTest extends TestCase
@@ -12,7 +13,6 @@ class ContactTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
     }
 
     /**
@@ -36,9 +36,28 @@ class ContactTest extends TestCase
      */
     public function testPostContactsOk()
     {
-
-        $response = $this->post(route('contact.store'), Contact::factory()->make()->toArray());
+        $response = $this->post(
+            route('contact.store'),
+            array_merge(Contact::factory()->make()->toArray(),
+                ['attachment' => $file = UploadedFile::fake()->create('test_attachment.txt', 400, 'text/plain')]
+            ));
         $response->assertStatus(201);
+
+    }
+
+    /**
+     * Test Post Contacts
+     *
+     * @return void
+     */
+    public function testPostContactsUploadSizeError()
+    {
+        $response = $this->post(
+            route('contact.store'),
+            array_merge(Contact::factory()->make()->toArray(),
+                ['attachment' => $file = UploadedFile::fake()->create('test_attachment.txt', 900, 'text/plain')]
+            ));
+        $response->assertStatus(422);
 
     }
 
@@ -49,10 +68,45 @@ class ContactTest extends TestCase
      */
     public function testPostContactsWithNoDataInPayload()
     {
-
         // Test validation with no data in payload
         $response = $this->post(route('contact.store'), []);
         $response->assertStatus(422);
+
+    }
+
+    /**
+     * Test Post Contacts
+     *
+     * @return void
+     */
+    public function testPostContactsEmailError()
+    {
+        $response = $this->post(
+            route('contact.store'),
+            array_merge(Contact::factory()->make(['email' => 'email'])->toArray(),
+                ['attachment' => $file = UploadedFile::fake()->create('test_attachment.txt', 400, 'text/plain')]
+            ));
+        $response->assertStatus(422);
+
+    }
+
+    /**
+     * Test Post Contacts
+     *
+     * @return void
+     */
+    public function testDownloadContactAttachment()
+    {
+        $response = $this->post(
+            route('contact.store'),
+            array_merge(Contact::factory()->make()->toArray(),
+                ['attachment' => $file = UploadedFile::fake()->create('test_attachment.txt', 400, 'text/plain')]
+            ));
+        $response->assertStatus(201);
+        $contact = json_decode($response->getContent());
+
+        $response = $this->get(route('contact.attachment', $contact->id));
+        $response->assertStatus(200);
     }
 
 }
