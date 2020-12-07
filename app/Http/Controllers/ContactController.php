@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ContactRepository;
 use App\Http\Resources\ContactResource;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ContactRequest;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Mail\Contact;
 use Exception;
 use DB;
-use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {
@@ -54,6 +56,8 @@ class ContactController extends Controller
 
             $contact = $this->contactRepository->create($data);
 
+            Mail::send(new Contact($contact));
+
             DB::commit();
         } catch (Exception $exception) {
             DB::rollBack();
@@ -72,6 +76,5 @@ class ContactController extends Controller
         $contact = $this->contactRepository->find($id);
 
         return Storage::download('messages/' . $contact->attachment);
-
     }
 }
