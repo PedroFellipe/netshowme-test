@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Support\Facades\Storage;
 
 class Contact extends BaseModel
 {
@@ -18,6 +19,8 @@ class Contact extends BaseModel
         'email',
         'phone',
         'message',
-        'ip'
+        'ip',
+        'attachment'
     ];
+
 }

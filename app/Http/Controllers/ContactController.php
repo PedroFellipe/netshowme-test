@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Exception;
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {
@@ -18,7 +19,6 @@ class ContactController extends Controller
     public function __construct(ContactRepository $contact)
     {
         $this->contactRepository = $contact;
-
     }
 
     /**
@@ -41,11 +41,16 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
+
         $data = $request->validated();
         $data['ip'] = $request->ip();
 
+        $extension = $request->attachment->getClientOriginalExtension();
+
         try {
             DB::beginTransaction();
+
+            $data['attachment'] = $this->contactRepository->uploadAttachment($data['attachment']);
 
             $contact = $this->contactRepository->create($data);
 
@@ -55,5 +60,18 @@ class ContactController extends Controller
             throw $exception;
         }
         return new JsonResponse(new ContactResource($contact), JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * Download an attachment
+     * @param $id
+     * @return JsonResponse
+     */
+    public function downloadAttachment($id)
+    {
+        $contact = $this->contactRepository->find($id);
+
+        return Storage::download('messages/' . $contact->attachment);
+
     }
 }

@@ -21,6 +21,8 @@ class ContactResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'message' => $this->message,
+            'ip' => $this->ip,
+            'attachment' => route('contact.attachment', $this->id)
         ];
     }
 }

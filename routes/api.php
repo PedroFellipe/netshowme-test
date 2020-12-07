@@ -18,7 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('contact')->group(function () {
+Route::prefix('contacts')->group(function () {
     Route::get('', 'App\Http\Controllers\ContactController@index')->name('contact.index');
     Route::post('', 'App\Http\Controllers\ContactController@store')->name('contact.store');
+
+    Route::get('{id}/attachment', 'App\Http\Controllers\ContactController@downloadAttachment')->name('contact.attachment');
+
 });
